@@ -1,0 +1,29 @@
+{
+    "$schema": "https://www.schemastore.org/package.json",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "vite build",
+        "dev": "vite"
+    },
+    "dependencies": {
+        "@maplibre/maplibre-gl-geocoder": "^1.9.4",
+        "@maplibre/maplibre-gl-leaflet": "^0.1.3",
+        "@tailwindcss/vite": "^4.1.11",
+        "autoprefixer": "^10.4.20",
+        "axios": "^1.7.4",
+        "concurrently": "^9.0.1",
+        "fullcalendar": "^6.1.20",
+        "laravel-vite-plugin": "^2.0",
+        "leaflet": "^1.9",
+        "maplibre-gl": "^5.21.1",
+        "tailwindcss": "^4.0.7",
+        "vite": "^7.0.4",
+        "vite-plugin-static-copy": "^3.3.0"
+    },
+    "optionalDependencies": {
+        "@rollup/rollup-linux-x64-gnu": "4.9.5",
+        "@tailwindcss/oxide-linux-x64-gnu": "^4.0.1",
+        "lightningcss-linux-x64-gnu": "^1.29.1"
+    }
+}
