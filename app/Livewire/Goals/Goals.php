@@ -17,6 +17,8 @@ class Goals extends Component
 
     #[Url]
     public string $committee = "";
+
+    public bool $noCommittee = false;
     
     public function mount(Request $request)
     {
@@ -24,6 +26,10 @@ class Goals extends Component
             $this->committee = $request->committee;
         } else {
             $committee = Committee::orderBy('name')->first();
+            if (!$committee) {
+                $this->noCommittee = true;
+                return;
+            }
             $this->committee = $committee->id;
         }
     }
