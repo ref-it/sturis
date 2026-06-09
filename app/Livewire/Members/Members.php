@@ -78,15 +78,15 @@ class Members extends Component
         }
 
         $membersElected = $this->getDepartmentNames($membersElected);
-        $membersRef = CurrentMember::where('committee', $this->committeeID)->where('flag_ref', true)->where('flag_elected', false)->get();
-        $membersRef = $this->getDepartmentNames($membersRef);
+        $membersActive = CurrentMember::where('committee', $this->committeeID)->where('flag_active', true)->where('flag_elected', false)->get();
+        $membersActive = $this->getDepartmentNames($membersActive);
         $membersStaff = CurrentMember::where('committee', $this->committeeID)->where('flag_staff', true)->get();
         $membersStaff = $this->getDepartmentNames($membersStaff);
 
         return view('livewire.members.members', [
             'groups' => $groups,
             'membersElected' => $membersElected,
-            'membersRef' => $membersRef,
+            'membersActive' => $membersActive,
             'membersStaff' => $membersStaff,
         ]);
     }

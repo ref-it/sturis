@@ -41,12 +41,12 @@
             </div>
         </flux:fieldset>
         
-        @if(count($membersRef) > 0)
+        @if(count($membersActive) > 0)
             <flux:fieldset>
                 <legend>{{ __('messages.activeMembers') }}</legend>
                 <div class="p-4">
                     <ul class="divide-y divide-zinc-200 dark:divide-zinc-700 -my-3">
-                        @foreach($membersRef as $member)
+                        @foreach($membersActive as $member)
                             <x-member :member="$member" :suspendable="false" />
                         @endforeach
                     </ul>
