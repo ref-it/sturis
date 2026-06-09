@@ -48,6 +48,7 @@ class AddCommittee extends Component
     public ?string $wikiPathDraft = null;
     public ?string $wikiPathPublic = null;
 
+    #[Validate('required')]
     public string $minutesStructure = "";
 
     public function mount()
