@@ -27,6 +27,7 @@ return [
     'chairsAndMinuteTakers' => 'Meeting Chairs and Minute-Takers',
     'committee' => 'Committee',
     'committees' => 'Committees',
+    'createCommitteeFirst' => 'You have to create a committee first.',
     'createMinutes' => 'Create Minutes',
     'date' => 'Date',
     'defaultAddress' => 'Default Address',

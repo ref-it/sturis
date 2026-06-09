@@ -18,12 +18,18 @@ class Groups extends Component
     #[Url]
     public string $committee = "";
 
+    public bool $noCommittee = false;
+
     public function mount(Request $request)
     {
         if ($request->committee) {
             $this->committee = $request->committee;
         } else {
             $committee = Committee::orderBy('name')->first();
+            if (!$committee) {
+                $this->noCommittee = true;
+                return;
+            }
             $this->committee = $committee->id;
         }
     }

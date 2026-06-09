@@ -3,33 +3,39 @@
         <div class="space-y-4 flex-1">
             <flux:heading size="xl">{{ __('messages.groups') }}</flux:heading>
         </div>
-        @can('admin')
-            <div>
-                <flux:button
-                    variant="primary"
-                    icon="plus"
-                    wire:navigate
-                    href="{{ route('group.new') }}"
-                >
-                    {{ __('messages.addGroup') }}
-                </flux:button>
-            </div>
-        @endcan
+        @if(!$noCommittee)
+            @can('admin')
+                <div>
+                    <flux:button
+                        variant="primary"
+                        icon="plus"
+                        wire:navigate
+                        href="{{ route('group.new') }}"
+                    >
+                        {{ __('messages.addGroup') }}
+                    </flux:button>
+                </div>
+            @endcan
+        @endif
     </div>
     <div>
-        <flux:field>
-            <flux:label>{{ __('messages.committee') }}</flux:label>
-            <flux:select variant="listbox" searchable wire:model.live="committee">
-                @foreach($committees as $c)
-                    <flux:select.option value="{{ $c->id }}">
-                        {{ $c->name }}
-                        @if($c->short_name)
-                            ({{ $c->short_name }})
-                        @endif
-                    </flux:select.option>
-                @endforeach
-            </flux:select>
-        </flux:field>
+        @if(!$noCommittee)
+            <flux:field>
+                <flux:label>{{ __('messages.committee') }}</flux:label>
+                <flux:select variant="listbox" searchable wire:model.live="committee">
+                    @foreach($committees as $c)
+                        <flux:select.option value="{{ $c->id }}">
+                            {{ $c->name }}
+                            @if($c->short_name)
+                                ({{ $c->short_name }})
+                            @endif
+                        </flux:select.option>
+                    @endforeach
+                </flux:select>
+            </flux:field>
+        @else
+            <x-create-committee-first />
+        @endif
     </div>
     <div>
         @if(count($groups) > 0)
