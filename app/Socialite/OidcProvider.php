@@ -3,10 +3,43 @@
 namespace App\Socialite;
 
 use SocialiteProviders\Manager\Exception\InvalidArgumentException;
+use SocialiteProviders\Manager\OAuth2\User;
 use SocialiteProviders\OIDC\Provider as BaseOidcProvider;
 
 class OidcProvider extends BaseOidcProvider
 {
+    /**
+     * The token endpoint response of the current request.
+     *
+     * @var array<string, mixed>
+     */
+    private array $tokenResponse = [];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAccessTokenResponse($code)
+    {
+        return $this->tokenResponse = parent::getAccessTokenResponse($code);
+    }
+
+    /**
+     * The base package overrides user() and, unlike the manager it builds on,
+     * never puts the token endpoint response back on the user. That drops the
+     * raw id_token, which RP-initiated logout needs as its id_token_hint, so
+     * attach the response here.
+     */
+    public function user()
+    {
+        $user = parent::user();
+
+        if ($user instanceof User) {
+            $user->setAccessTokenResponseBody($this->tokenResponse);
+        }
+
+        return $user;
+    }
+
     /**
      * Build an RP-Initiated Logout URL (https://openid.net/specs/openid-connect-rpinitiated-1_0.html).
      * Not provided by the base package.
