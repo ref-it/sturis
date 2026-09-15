@@ -6,7 +6,7 @@ use App\Models\Committee;
 use App\Models\Meeting;
 use App\Models\Resolution;
 use App\Models\Term;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Pdf\ResolutionsPdf;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -152,19 +152,15 @@ class Resolutions extends Component
 
         $types = self::RESOLUTION_TYPES;
 
-        $pdf = Pdf::loadView('pdfs.resolutions', [
-            'committee' => $committeeData->name,
-            'term' => $this->term,
-            'type' => $this->type,
-            'types' => $types,
-            'meeting' => $this->meeting,
-            'meetings' => $meetings,
-            'resolutions' => $resolutions,
-        ]);
-
-        return response()->streamDownload(function () use ($pdf) {
-                echo $pdf->stream();
-            }, strtolower(__('messages.resolutions')) . '.pdf');
+        return (new ResolutionsPdf(
+            $committeeData->name,
+            $resolutions,
+            $meetings,
+            $this->meeting,
+            $types,
+            $this->type,
+            $this->term,
+        ))->download(strtolower(__('messages.resolutions')) . '.pdf');
 
     }
 }

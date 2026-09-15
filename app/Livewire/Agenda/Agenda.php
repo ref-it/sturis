@@ -11,7 +11,7 @@ use App\Models\Goal;
 use App\Models\Meeting;
 use App\Models\Motion;
 use App\Models\User;
-use Barryvdh\DomPDF\Facade\Pdf;
+use App\Services\Pdf\AgendaPdf;
 use DateInterval;
 use DateTime;
 use DateTimeZone;
@@ -322,15 +322,8 @@ class Agenda extends Component
             $minutesStructure = $this->addFreeChildren($minutesStructure);
         }
 
-        $pdf = Pdf::loadView('pdfs.agenda', [
-            'agenda' => $minutesStructure,
-            'committee' => $committee->name,
-            'meeting' => $meeting,
-        ]);
-
-        return response()->streamDownload(function () use ($pdf) {
-                echo $pdf->stream();
-            }, strtolower(__('messages.agenda')) . '_' . $this->committee . '_' .$meeting->date . '.pdf');
+        return (new AgendaPdf($committee->name, $meeting, $minutesStructure))
+            ->download(strtolower(__('messages.agenda')) . '_' . $this->committee . '_' . $meeting->date . '.pdf');
     }
 
     public function createMinutes()
