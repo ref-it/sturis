@@ -11,9 +11,10 @@ class CurrentMember extends Model
     protected $fillable = [
         'committee',
         'name',
+        'email',
         'job',
         'flag_elected',
-        'flag_ref',
+        'flag_active',
         'flag_staff',
         'flag_suspended',
         'group',

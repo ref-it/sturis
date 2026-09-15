@@ -32,9 +32,6 @@ class AddCommittee extends Component
     public string $defaultRoom = "";
 
     public bool $isActive = true;
-    public bool $minutesInWiki = false;
-    public bool $minutesSeparatedByYear = false;
-    public bool $minutesSeparatedByTerm = false;
 
     #[Validate('required')]
     public string $defaultLatitude = "";
@@ -42,14 +39,8 @@ class AddCommittee extends Component
     #[Validate('required')]
     public string $defaultLongitude = "";
 
-    public bool $wikiInternalMinutes = false;
-
-    public ?string $wikiPathInternal = null;
-    public ?string $wikiPathDraft = null;
-    public ?string $wikiPathPublic = null;
-
     #[Validate('required')]
-    public string $minutesStructure = "";
+    public string $minutesStructure = "[]";
 
     public function mount()
     {
@@ -93,13 +84,7 @@ class AddCommittee extends Component
             'default_room' => $this->defaultRoom,
             'default_latitude' => $this->defaultLatitude,
             'default_longitude' => $this->defaultLongitude,
-            'wiki_path_internal' => $this->wikiPathInternal,
-            'wiki_path_draft' => $this->wikiPathDraft,
-            'wiki_path_public' => $this->wikiPathPublic,
-            'wiki_internal_minutes' => $wikiInternalMinutes,
             'active' => $this->isActive,
-            'minutes_in_wiki' => $this->minutesInWiki,
-            'minutes_separated_by_year' => $this->minutesSeparatedByYear,
             'minutes_structure' => $this->minutesStructure,
         ]);
 

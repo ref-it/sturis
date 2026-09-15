@@ -17,6 +17,7 @@
     </head>
     <body class="flex w-full h-full">
         <livewire:sidebar />
+        
         <div class="grid grid-rows-[auto_1fr] w-full h-full">
             @include('header')
             <main class="h-full flex-1 overflow-x-hidden overflow-y-auto">

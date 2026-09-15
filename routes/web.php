@@ -13,23 +13,14 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/committees', \App\Livewire\Committees\Committees::class)->name('committees');
     Route::get('/committees/new', \App\Livewire\Committees\AddCommittee::class)->name('committee.new')->can('admin');
-    Route::get('/committees/{committee}/edit', \App\Livewire\Committees\EditCommittee::class)->name('committee.edit')->can('admin');
+    Route::get('/committees/{committee}/general', \App\Livewire\Committees\EditCommittee::class)->name('committee.edit')->can('admin');
 
-    Route::get('/groups', \App\Livewire\Groups\Groups::class)->name('groups');
-    Route::get('/groups/new', \App\Livewire\Groups\AddGroup::class)->name('group.new')->can('admin');
-    Route::get('/groups/{id}/edit', \App\Livewire\Groups\EditGroup::class)->name('group.edit')->can('admin');
-
-    Route::get('/departments', \App\Livewire\Departments\Departments::class)->name('departments')->can('admin');
-    Route::get('/departments/new', \App\Livewire\Departments\AddDepartment::class)->name('department.new')->can('admin');
-    Route::get('/departments/{id}/edit', \App\Livewire\Departments\EditDepartment::class)->name('department.edit')->can('admin');
-
-    Route::get('/goals', \App\Livewire\Goals\Goals::class)->name('goals')->can('admin');
-    Route::get('/goals/new', \App\Livewire\Goals\AddGoal::class)->name('goal.new')->can('admin');
-    Route::get('/goals/{id}/edit', \App\Livewire\Goals\EditGoal::class)->name('goal.edit')->can('admin');
-
-    Route::get('/templates', \App\Livewire\Templates\Templates::class)->name('templates')->can('admin');
-    Route::get('/templates/new', \App\Livewire\Templates\AddTemplate::class)->name('template.new')->can('admin');
-    Route::get('/templates/{id}/edit', \App\Livewire\Templates\EditTemplate::class)->name('template.edit')->can('admin');
+    Route::get('/committees/{committee}/departments', \App\Livewire\Committees\Departments::class)->name('departments')->can('admin');
+    Route::get('/committees/{committee}/goals', \App\Livewire\Committees\Goals::class)->name('goals')->can('admin');
+    Route::get('/committees/{committee}/groups', \App\Livewire\Committees\Groups::class)->name('groups')->can('admin');
+    Route::get('/committees/{committee}/members', \App\Livewire\Committees\Members::class)->name('committee.members')->can('admin');
+    Route::get('/committees/{committee}/templates', \App\Livewire\Committees\Templates::class)->name('templates')->can('admin');
+    Route::get('/committees/{committee}/wiki', \App\Livewire\Committees\Wiki::class)->name('committee.wiki')->can('admin');
 
     Route::get('/terms', \App\Livewire\Terms\Terms::class)->name('terms');
     Route::get('/terms/new', \App\Livewire\Terms\AddTerm::class)->name('term.add')->can('admin');
@@ -45,7 +36,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/{committee}', \App\Livewire\Dashboard::class)->name('dashboard');
     Route::get('/{committee}/meetings/{meeting}/agenda', \App\Livewire\Agenda\Agenda::class)->name('agenda');
     Route::get('/{committee}/meetings', \App\Livewire\Meetings\Meetings::class)->name('meetings');
-    Route::get('/{committee}/todos', \App\Livewire\Todos::class)->name('todos');
     Route::get('/{committee}/members', \App\Livewire\Members\Members::class)->name('members');
 });
 

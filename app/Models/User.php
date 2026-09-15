@@ -24,6 +24,7 @@ class User extends Authenticatable
         'password',
         'groups',
         'username',
+        'oidc_sub',
         'firstname',
         'lastname',
         'oidc_token',

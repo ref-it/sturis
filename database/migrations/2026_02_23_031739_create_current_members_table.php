@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('current_members', function (Blueprint $table) {
             $table->id();
             $table->string('committee');
-            $table->string('name');
+            $table->int('user_id');
             $table->string('job');
             $table->boolean('flag_elected');
             $table->boolean('flag_active');

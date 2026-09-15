@@ -5,6 +5,7 @@
                 @foreach($committees as $c)
                     <a
                         class="flex flex-col dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 rounded-md p-3 shadow-xs hover:ring-2 focus:ring-2 ring-(--color-accent-content)"
+                        wire:navigate
                         href="{{ route('meetings', ['committee' => $c->token]) }}"
                         aria-label="{{ $c->name }}"
                     >

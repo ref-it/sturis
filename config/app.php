@@ -123,16 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    /* OpenID Connect */
-
-    'oidc' => [
-        'client_id' => env('OIDC_CLIENT_ID', 'sivonas'),
-        'client_secret' => env('OIDC_CLIENT_SECRET', ''),
-        'redirect_uri' => env('OIDC_REDIRECT_URI', '${APP_URL}/auth/callback'),
-        'base_url' => env('OIDC_BASE_URL', ''),
-        'realm' => env('OIDC_REALM', ''),
-    ],
-
     /* DokuWiki */
 
     'wiki' => [

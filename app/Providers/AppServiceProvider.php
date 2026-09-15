@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
         $this->configureDefaults();
 
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {
-            $event->extendSocialite('keycloak', \SocialiteProviders\Keycloak\Provider::class);
+            $event->extendSocialite('oidc', \App\Socialite\OidcProvider::class);
         });
 
         Gate::define('admin', function (User $user) {

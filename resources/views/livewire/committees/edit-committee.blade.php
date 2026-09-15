@@ -1,149 +1,82 @@
-<div class="p-6 sm:px-8 space-y-8">
-    <div class="space-y-4">
-        <flux:heading size="xl">{{ __('messages.editCommittee') }}</flux:heading>
-    </div>
-    <div class="grid sm:grid-cols-2 gap-8">
-        <div class="space-y-8">
+<div class="flex flex-col h-full">
+    <div class="flex flex-col h-full">
+        <x-edit-committee-navbar :committeeToken="$token" :committeeName="$name" />
 
-            <flux:fieldset>
-                <legend class="flex">
-                    <div class="flex-1">{{ __('messages.general') }}</div>
-                </legend>
-                <div class="p-4 space-y-4">
-                    <flux:field>
-                        <flux:label>{{ __('messages.token') }}</flux:label>
-                        <flux:input wire:model="token" disabled />
-                        <flux:error name="token" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.name') }}</flux:label>
-                        <flux:input wire:model="name" />
-                        <flux:error name="name" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.shortName') }}</flux:label>
-                        <flux:input wire:model="shortName" />
-                        <flux:error name="shortName" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.active') }}</flux:label>
-                        <div class="block">
-                            <flux:switch wire:model="isActive" />
+        <div class="flex-1 overflow-y-auto">
+            <div class="p-6 sm:p-8 space-y-6">
+                <flux:fieldset>
+                    <legend>{{ __('messages.general') }}</legend>
+                    <div class="p-4 space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <flux:field>
+                                <flux:label>{{ __('messages.name') }}</flux:label>
+                                <flux:input wire:model="name" />
+                                <flux:error name="name" />
+                            </flux:field>
+                            <flux:field>
+                                <flux:label>{{ __('messages.shortName') }}</flux:label>
+                                <flux:input wire:model="shortName" />
+                                <flux:error name="shortName" />
+                            </flux:field>
                         </div>
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.minutesStructure') }}</flux:label>
-                        <flux:textarea wire:model="minutesStructure" class="h-[15rem] lg:h-[20rem] font-mono" />
-                        <flux:error name="minutesStructure" />
-                    </flux:field>
-                </div>
-            </flux:fieldset>
+                        <flux:field>
+                            <flux:label>{{ __('messages.minutesStructure') }}</flux:label>
+                            <flux:textarea wire:model="minutesStructure" class="h-[15rem] lg:h-[20rem] font-mono" />
+                            <flux:error name="minutesStructure" />
+                        </flux:field>
+                    </div>
+                </flux:fieldset>
 
-            <flux:fieldset>
-                <legend class="flex">
-                    <div class="flex-1">{{ __('messages.meetingDate') }}</div>
-                </legend>
-                <div class="p-4 space-y-4">
-                    <flux:field>
-                        <flux:label>{{ __('messages.defaultWeekday') }}</flux:label>
-                        <flux:select variant="listbox" wire:model="defaultWeekday">
-                            @foreach($weekdays as $wd)
-                                <flux:select.option value="{{ $wd['id'] }}">{{ $wd['name'] }}</flux:select.option>
-                            @endforeach
-                        </flux:select>
-                        <flux:error name="defaultWeekday" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.defaultTime') }}</flux:label>
-                        <flux:input type="time" wire:model="defaultTime" />
-                        <flux:error name="defaultTime" />
-                    </flux:field>
-                </div>
-            </flux:fieldset>
-        </div>
-        <div class="space-y-8">
-            <flux:fieldset>
-                <legend class="flex">
-                    <div class="flex-1">{{ __('messages.meetingPlace') }}</div>
-                </legend>
-                <div class="p-4 space-y-4">
-                    <flux:field>
-                        <flux:label>{{ __('messages.defaultAddress') }}</flux:label>
-                        <flux:input wire:model="defaultAddress" />
-                        <flux:error name="defaultAddress" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.defaultRoom') }}</flux:label>
-                        <flux:input wire:model="defaultRoom" />
-                        <flux:error name="defaultRoom" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.map') }}</flux:label>
-                        <div wire:ignore id="map" class="z-10 h-[16rem] lg:h-[20rem]"></div>
-                        <flux:description>{!! config('app.map.nominatim.attribution') !!}</flux:description>
-                    </flux:field>
-                </div>
-            </flux:fieldset>
-            
-            <flux:fieldset>
-                <legend class="flex">
-                    <div class="flex-1">{{ __('messages.wiki') }}</div>
-                    <div>
-                        <flux:switch wire:model.live="minutesInWiki" />
+                <flux:fieldset>
+                    <legend>{{ __('messages.meetingDate') }}</legend>
+                    <div class="p-4 space-y-4">
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <flux:field>
+                                <flux:label>{{ __('messages.defaultWeekday') }}</flux:label>
+                                <flux:select variant="listbox" wire:model="defaultWeekday">
+                                    @foreach($weekdays as $wd)
+                                        <flux:select.option value="{{ $wd['id'] }}">{{ $wd['name'] }}</flux:select.option>
+                                    @endforeach
+                                </flux:select>
+                                <flux:error name="defaultWeekday" />
+                            </flux:field>
+                            <flux:field>
+                                <flux:label>{{ __('messages.defaultTime') }}</flux:label>
+                                <flux:input type="time" wire:model="defaultTime" />
+                                <flux:error name="defaultTime" />
+                            </flux:field>
+                        </div>
                     </div>
-                </legend>
-                <div class="p-4 space-y-4">
-                    <flux:field>
-                        <flux:label>{{ __('messages.minutesBasePathInternal') }}</flux:label>
-                        <flux:input
-                            wire:model="wikiPathInternal"
-                            :disabled="!$minutesInWiki"
-                        />
-                        <flux:error name="wikiPathInternal" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.minutesBasePathDraft') }}</flux:label>
-                        <flux:input
-                            wire:model="wikiPathDraft"
-                            :disabled="!$minutesInWiki"
-                        />
-                        <flux:error name="wikiPathDraft" />
-                    </flux:field>
-                    <flux:field>
-                        <flux:label>{{ __('messages.minutesBasePathPublic') }}</flux:label>
-                        <flux:input
-                            wire:model="wikiPathPublic"
-                            :disabled="!$minutesInWiki"
-                        />
-                        <flux:error name="wikiPathPublic" />
-                    </flux:field>
-                    <div class="grid grid-cols-2 gap-6">
+                </flux:fieldset>
+
+                <flux:fieldset>
+                    <legend>{{ __('messages.meetingPlace') }}</legend>
+                    <div class="p-4 space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <flux:field>
+                                <flux:label>{{ __('messages.defaultAddress') }}</flux:label>
+                                <flux:input wire:model="defaultAddress" />
+                                <flux:error name="defaultAddress" />
+                            </flux:field>
+                            <flux:field>
+                                <flux:label>{{ __('messages.defaultRoom') }}</flux:label>
+                                <flux:input wire:model="defaultRoom" />
+                                <flux:error name="defaultRoom" />
+                            </flux:field>
+                        </div>
                         <flux:field>
-                            <flux:label>{{ __('messages.minutesSeparatedByTerm') }}</flux:label>
-                            <div class="block">
-                                <flux:switch
-                                    wire:model="minutesSeparatedByTerm"
-                                    :disabled="!$minutesInWiki"
-                                />
-                            </div>
-                        </flux:field>
-                        <flux:field>
-                            <flux:label>{{ __('messages.minutesSeparatedByYear') }}</flux:label>
-                            <div class="block">
-                                <flux:switch
-                                    wire:model="minutesSeparatedByYear"
-                                    :disabled="!$minutesInWiki"
-                                />
-                            </div>
+                            <flux:label>{{ __('messages.map') }}</flux:label>
+                            <div wire:ignore id="map" class="z-10 h-[16rem] lg:h-[20rem]"></div>
+                            <flux:description>{!! config('app.map.nominatim.attribution') !!}</flux:description>
                         </flux:field>
                     </div>
-                </div>
-            </flux:fieldset>
+                </flux:fieldset>
+            </div>
+
+            <div class="py-6 mt-auto mt-auto px-8 flex items-center justify-end gap-x-4 border-t border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-zinc-800">
+                <flux:button variant="primary" icon="save" wire:click="$js.save">{{ __('messages.save') }}</flux:button>
+            </div>
         </div>
-    </div>
-    <div class="py-6 -mx-8 -mb-6 mt-auto px-8 flex items-center justify-end gap-x-4 border-t border-zinc-200 dark:border-zinc-900 bg-zinc-100 dark:bg-zinc-800">
-        <flux:button icon="ban" wire:navigate href="{{ route('committees') }}">{{ __('messages.cancel') }}</flux:button>
-        <flux:button variant="primary" icon="save" wire:click="$js.save">{{ __('messages.save') }}</flux:button>
     </div>
 </div>
 

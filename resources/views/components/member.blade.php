@@ -11,25 +11,36 @@
             </div>
         @endif
     </div>
-    @if($suspendable)
-        <div>
-            @if($member->flag_suspended)
-                <flux:button
+    <div class="flex gap-2">
+        <flux:dropdown>
+            <flux:button size="sm" icon="ellipsis-vertical" />
+            <flux:menu>
+                @if($suspendable)
+                    @if($member->flag_suspended)
+                        <flux:menu.item
+                            icon="play"
+                            wire:click="toggleSuspended({{ $member->id }})"
+                        >
+                            {{ __('messages.active') }}
+                        </flux:menu.item>
+                    @else
+                        <flux:menu.item
+                            icon="pause"
+                            wire:click="toggleSuspended({{ $member->id }})"
+                        >
+                            {{ __('messages.suspended') }}
+                        </flux:menu.item>
+                    @endif
+                @endif
+
+                <flux:menu.item
                     size="sm"
-                    icon="play"
-                    wire:click="toggleSuspended({{ $member->id }})"
+                    icon="pencil"
+                    wire:click="openEditModal({{ $member->id }})"
                 >
-                    {{ __('messages.active') }}
-                </flux:button>
-            @else
-                <flux:button
-                    size="sm"
-                    icon="pause"
-                    wire:click="toggleSuspended({{ $member->id }})"
-                >
-                    {{ __('messages.suspended') }}
-                </flux:button>
-            @endif
-        </div>
-    @endif
+                    {{ __('messages.edit') }}
+                </flux:menu.item>
+            </flux:menu>
+        </flux:dropdown>
+    </div>
 </li>

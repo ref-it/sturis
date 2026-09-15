@@ -17,12 +17,19 @@
     </head>
     <body class="flex w-full h-full">
         <x-sidebar-start />
+        
         <div class="grid grid-rows-[auto_1fr] w-full h-full">
             @include('header')
             <main class="h-full flex-1 overflow-x-hidden overflow-y-auto">
                 {{ $slot }}
             </main>
         </div>
+
+        @persist('toast')
+            <flux:toast.group position="top end">
+                <flux:toast />
+            </flux:toast.group>
+        @endpersist
 
         @livewireScripts
         @fluxScripts

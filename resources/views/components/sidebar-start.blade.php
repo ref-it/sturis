@@ -31,40 +31,6 @@
                 {{ __('messages.committees') }}
             </flux:sidebar.item>
             <flux:sidebar.item
-                icon="chart-pie"
-                wire:navigate
-                href="{{ route('groups') }}"
-                :current="request()->is('*/groups*')"
-            >
-                {{ __('messages.groups') }}
-            </flux:sidebar.item>
-            @can('admin')
-                <flux:sidebar.item
-                    icon="award"
-                    wire:navigate
-                    href="{{ route('departments') }}"
-                    :current="request()->is('*/departments*')"
-                >
-                    {{ __('messages.departments') }}
-                </flux:sidebar.item>
-                <flux:sidebar.item
-                    icon="navigation"
-                    wire:navigate
-                    href="{{ route('goals') }}"
-                    :current="request()->is('*/goals*')"
-                >
-                    {{ __('messages.goals') }}
-                </flux:sidebar.item>
-                <flux:sidebar.item
-                    icon="file-text"
-                    wire:navigate
-                    href="{{ route('templates') }}"
-                    :current="request()->is('*/templates*')"
-                >
-                    {{ __('messages.templates') }}
-                </flux:sidebar.item>
-            @endcan
-            <flux:sidebar.item
                 icon="calendar-range"
                 wire:navigate
                 href="{{ route('terms') }}"

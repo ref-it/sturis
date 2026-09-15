@@ -11,7 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Back-channel logout is an unsolicited server-to-server POST from the
+        // OIDC provider — it carries no session/cookie, so it can't supply a
+        // CSRF token. It's authenticated instead by JWT signature verification.
+        $middleware->validateCsrfTokens(except: [
+            'auth/backchannel-logout',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Agenda;
 
+use App\Facades\DokuWiki;
+use App\Facades\Minutes;
 use App\Models\AgendaItem;
 use App\Models\Attachment;
 use App\Models\Committee;
@@ -329,5 +331,10 @@ class Agenda extends Component
         return response()->streamDownload(function () use ($pdf) {
                 echo $pdf->stream();
             }, strtolower(__('messages.agenda')) . '_' . $this->committee . '_' .$meeting->date . '.pdf');
+    }
+
+    public function createMinutes()
+    {
+        Minutes::generate($this->committeeID, $this->meetingID);
     }
 }
